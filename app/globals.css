@@ -1,26 +1,196 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   EMMA AI LAB · 个人网站设计令牌（深蓝冲击版）
+   深海军蓝底 + 亮电光蓝 + 白卡片对比（区别于 AI百宝箱 浅色版）
+   ============================================================ */
+
+@theme {
+  --color-canvas: #081226;       /* 深海军蓝底 */
+  --color-surface: #ffffff;      /* 卡片白底（深蓝底上的高对比） */
+  --color-surface-soft: #eef4f9;
+  --color-ink: #eaf2fc;          /* 深底上的主文字（浅色） */
+  --color-ink-soft: #94a9c6;     /* 深底上的次要文字 */
+  --color-ink-dark: #0f1b2d;     /* 白卡片内的深色文字 */
+  --color-ink-soft-dark: #4c5e76;/* 白卡片内的次要文字 */
+  --color-line: rgba(148, 178, 214, 0.18);
+  --color-line-strong: rgba(148, 178, 214, 0.32);
+
+  --color-accent: #38bdf8;       /* 亮电光蓝（深底高亮） */
+  --color-accent-strong: #38bdf8;
+  --color-accent-deep: #0ea5e9;
+  --color-success: #34d399;
+  --color-success-strong: #0d9488;
+  --color-warn: #fbbf24;
+  --color-warn-strong: #b45309;
+  --color-category-violet: #a78bfa;
+
+  --font-display: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", ui-monospace, monospace;
+
+  --shadow-card: 0 8px 32px rgba(2, 8, 20, 0.45);
+  --shadow-card-hover: 0 14px 44px rgba(2, 8, 20, 0.55);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.35);
+}
+
+/* ---------- 深蓝背景网格与光晕（背景层专用） ---------- */
+.tech-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 178, 214, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 178, 214, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, black 40%, transparent 100%);
+}
+
+.tech-glow {
+  background: radial-gradient(ellipse 480px 360px at 78% -10%, rgba(56, 189, 248, 0.22), transparent 70%);
+}
+
+.tech-glow-2 {
+  background: radial-gradient(ellipse 420px 320px at 12% 30%, rgba(56, 189, 248, 0.14), transparent 70%);
+}
+
+/* ---------- 简笔画线稿（深底用亮色） ---------- */
+.doodle {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.doodle-draw {
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  animation: doodle-draw 0.45s ease-out forwards;
+}
+@keyframes doodle-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .doodle-draw { animation: none; stroke-dashoffset: 0; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* ---------- 组件（深色版） ---------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  color: var(--color-ink-dark); /* 白卡片内文字用深色 */
+}
+
+.card-hover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #081226;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.35);
+}
+.btn-primary:hover {
+  background: #7dd3fc;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  font-weight: 600;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 18, 38, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.status-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 999px;
+  padding: 2px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(56, 189, 248, 0.08);
+}
+.status-tag::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+.section-no {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+}
+
+.card-tag {
+  background: var(--color-surface-soft);
+  border: 1px solid rgba(184, 200, 218, 0.8);
+  color: var(--color-ink-soft-dark);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+}
+
+/* 深蓝玻璃面板（Hero 右侧数据面板） */
+.card-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(148, 178, 214, 0.22);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(2, 8, 20, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
