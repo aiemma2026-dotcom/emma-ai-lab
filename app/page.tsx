@@ -300,7 +300,9 @@ export default function HomePage() {
               <div className="flex items-center gap-3">
                 <span className="text-ink-soft-dark shrink-0">GitHub</span>
                 <span className="w-8 h-px bg-line-strong shrink-0" />
-                <span className="text-ink-soft-dark">待补充</span>
+                <a href="https://github.com/aiemma2026-dotcom" target="_blank" rel="noopener noreferrer" className="text-accent-deep hover:underline">
+                  aiemma2026-dotcom
+                </a>
               </div>
             </div>
           </div>
